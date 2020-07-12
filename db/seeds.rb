@@ -6,4 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user = User.create(username: "username", password: "password", email: "user@example.com", role: 1)
+user1 = User.create(username: "admin", password: "password", email: "user@example.com", role: 0)
+user2 = User.create(username: "owner", password: "password", email: "user@example.com", role: 1)
+user3 = User.create(username: "customer", password: "password", email: "user@example.com", role: 2)
+hotel = Hotel.create(name: "SunMoon", rating: 3, rate: 1000, description: "The best class hotel in town!", owner_id: user2.id)
+booking1 = Booking.create(user_id: user3.id, hotel_id: hotel.id, adults: 3, children: 1)
+booking2 = Booking.create(user_id: user1.id, hotel_id: hotel.id, adults: 3, children: 1)
+booking3 = Booking.create(user_id: user1.id, hotel_id: hotel.id, adults: 3, children: 1)
+# booking = Booking.create(hotel_id: hotel.id, user_id: user3.id, booking_class: hotel.hotel_class)
