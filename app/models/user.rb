@@ -7,10 +7,11 @@ class User < ApplicationRecord
 	has_many :bookings
 	has_many :hotels, through: :bookings
 
-	def initialize(*)
-    	super
-  	rescue ArgumentError
-    	render json: {error: "Role error."}
-  	end
+
+	# def initialize(*)
+ #    	super
+ #  	rescue ArgumentError
+ #    	render json: {error: "Role error."}
+ #  	end
 
 end

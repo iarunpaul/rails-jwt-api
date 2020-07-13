@@ -42,11 +42,19 @@ class BookingsController < ApplicationController
 # payment token and booking id as post request
   def checkout
 	if params[:token]
-		@booking = Booking.find(params[:id])
+
+		byebug
+
+
+		if @booking = Booking.find(params[:id])
+
 		@booking.payment_status = true
 		@booking.booking_status = "confirmed"
 		@booking.save!
 		render json: @booking
+		else
+      	render json: { error: "User with id #{params[:id]} not found." }, status: :not_found
+    	end
 	else
 		render json: { message: "Payment failed."}
 	end

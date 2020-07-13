@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+	include Error::ErrorHandler
   before_action :authorized
 
   def encode_token(payload)
