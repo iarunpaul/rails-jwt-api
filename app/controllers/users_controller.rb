@@ -5,9 +5,8 @@ class UsersController < ApplicationController
   # User can register self as customer or owner
   # Only an admin can register another admin and other users
   def create
-
   	logged_user = logged_in_user
-  	if logged_user && logged_user.role == "admin"
+  	if logged_user && logged_user.admin?
   		@user = User.create(user_params)
   		if @user.valid?
   			token = encode_token({user_id: @user.id})
@@ -17,7 +16,7 @@ class UsersController < ApplicationController
   		end
     else
     	@user = User.new(user_params)
-	    if @user.valid? && @user.role != "admin"
+	    if @user.valid? && !@user.admin?
 	    	@user.save!
 	      token = encode_token({user_id: @user.id})
 	      render json: {user: @user, token: token}, status: 200
@@ -47,9 +46,7 @@ class UsersController < ApplicationController
   # UPDATE put '/users'
   # updates account attributes, and admin only can update the role of users
   def update
-  	byebug
-  	logged_user = logged_in_user
-  	if logged_user && logged_user.role == "admin"
+  	if @current_user && @current_user.admin?
   		@user = User.find_by_username(params[:username])
   		if @user.update!(user_params)
   			render json: {message: "User with id : #{params[:id]} is updated."}, status: 200
@@ -57,7 +54,7 @@ class UsersController < ApplicationController
 				render json: {message: "Attribute error, not updated"}, status: 403
 			end
   	else
-    	@user = User.find(logged_user.id)
+    	@user = User.find(@current_user.id)
 	    if params[:role] != "admin"
 	    	@user.update!(user_params)
 	    	render json: {user: @user, message: "Account updated."}, status: 200
@@ -71,16 +68,14 @@ class UsersController < ApplicationController
   # and deletes the user with id
   # for other users their account gets deleted
   def destroy
-  	logged_user = logged_in_user
-  	if logged_user && logged_user.role == "admin"
+  	if @current_user && @current_user.admin?
   		@user = User.find(params[:id])
   		@user.delete
   		render json: {message: "User with id : #{params[:id]} is deleted."}, status: 200
   	else
-  		logged_user.delete
-  		render json: {message: "You have deleted your account."}, status: 200
+  		@current_user.delete
+  		render json: {message: "You have successfully deleted your account."}, status: 200
   	end
-
   end
 
  private
