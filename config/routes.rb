@@ -6,8 +6,9 @@ Rails.application.routes.draw do
   post "cancel_booking", to: "bookings#cancel_booking"
   post "checkout", to: "bookings#checkout"
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resource :users, only: [:create]
+  resource :users, only: [:create, :update]
   post "/login", to: "users#login"
-  get "/auto_login", to: "users#auto_login"
+  get "/current_user", to: "users#current_user"
+  post "/delete_user", to: "users#destroy"
 
 end

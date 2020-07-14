@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::API
+
 	include Error::ErrorHandler
   before_action :authorized
 
@@ -26,7 +27,7 @@ class ApplicationController < ActionController::API
   def logged_in_user
     if decoded_token
       user_id = decoded_token[0]['user_id']
-      @user = User.find_by(id: user_id)
+      @current_user = User.find_by(id: user_id)
     end
   end
 
@@ -35,7 +36,7 @@ class ApplicationController < ActionController::API
   end
 
   def authorized
-    render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
+    render json: { message: 'You are logged out. Log In please!' }, status: :unauthorized unless logged_in?
   end
 
 end
