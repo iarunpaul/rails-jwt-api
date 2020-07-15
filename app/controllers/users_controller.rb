@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   			token = encode_token({user_id: @user.id})
   			render json: {user: @user, token: token}, status: 200
   		else
-  			render json: {error: "Invalid attributes."}, status: 403
+  			render json: {error: "Void/Invalid attributes."}, status: 403
   		end
     else
     	@user = User.new(user_params)
@@ -21,7 +21,7 @@ class UsersController < ApplicationController
 	      token = encode_token({user_id: @user.id})
 	      render json: {user: @user, token: token}, status: 200
 	    else
-	      render json: {error: "Invalid/Unpermitted attributes."}, status: 403
+	      render json: {error: "Void/Invalid/Unpermitted attributes."}, status: 403
 	    end
     end
   end
@@ -48,16 +48,18 @@ class UsersController < ApplicationController
   def update
   	if @current_user && @current_user.admin?
   		@user = User.find_by_username(params[:username])
+  		# params.delete(:password) if params[:password].blank?
   		if @user.update!(user_params)
-  			render json: {message: "User with id : #{params[:id]} is updated."}, status: 200
+  			render json: {message: "User with id : #{@user.id} is updated.", user: @user }, status: 200
 			else
 				render json: {message: "Attribute error, not updated"}, status: 403
 			end
   	else
     	@user = User.find(@current_user.id)
+    	# params.delete(:password) if params[:password].blank?
 	    if params[:role] != "admin"
 	    	@user.update!(user_params)
-	    	render json: {user: @user, message: "Account updated."}, status: 200
+	    	render json: {user: @user, message: "Account updated.", user: @user }, status: 200
     	else
 	      render json: {error: "Invalid/Unpermitted attributes."}, status: 403
       end
@@ -67,11 +69,12 @@ class UsersController < ApplicationController
   # Optionally takes id as request from admin
   # and deletes the user with id
   # for other users their account gets deleted
+  # post '/delete_user'
   def destroy
   	if @current_user && @current_user.admin?
-  		@user = User.find(params[:id])
+  		@user = User.find_by_username(params[:username])
   		@user.delete
-  		render json: {message: "User with id : #{params[:id]} is deleted."}, status: 200
+  		render json: {message: "User #{params[:username]} is deleted."}, status: 200
   	else
   		@current_user.delete
   		render json: {message: "You have successfully deleted your account."}, status: 200
