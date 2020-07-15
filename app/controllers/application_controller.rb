@@ -38,5 +38,15 @@ class ApplicationController < ActionController::API
   def authorized
     render json: { message: 'You are logged out. Log In please!' }, status: :unauthorized unless logged_in?
   end
+  private
+	 	def respond_with_json(message, data, error = nil, status = 200)
+	    json = {
+				        status: status,
+				        error: error,
+				        message: message,
+				        data: data
+				      }
+	    render json: json, status: status
+	  end
 
 end

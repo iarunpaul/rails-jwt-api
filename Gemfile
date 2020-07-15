@@ -28,6 +28,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors'
 # A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
 gem 'jwt', '~> 2.2', '>= 2.2.1'
+# Use yard for project documentation
+gem 'yard', '~> 0.9.25'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
