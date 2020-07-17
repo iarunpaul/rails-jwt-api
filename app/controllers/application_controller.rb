@@ -44,6 +44,7 @@ class ApplicationController < ActionController::API
 
   def respond_http(status, message, data, token)
   	token ||= nil
+  	response.headers['auth_token'] = token
   	render json: {status: status, message: message, data: data, current_user_token: token}, status: status
   end
 
