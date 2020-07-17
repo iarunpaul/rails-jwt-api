@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
 
 	include Error::ErrorHandler
 
-  before_action :authorized
+  before_action :api_key_check, :authorized
 
   ALGORITHM = 'HS256'
 
@@ -47,5 +47,11 @@ class ApplicationController < ActionController::API
   	response.headers['auth_token'] = token
   	render json: {status: status, message: message, data: data, current_user_token: token}, status: status
   end
+  private
+  	def api_key_check
+  		render json: {
+  			message: "Sorry!! Key is missing to access the app" },
+  			status: 403 unless request.headers['api-key'].to_i == 123
+  	end
 
 end
