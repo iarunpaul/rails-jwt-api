@@ -10,6 +10,10 @@ class ApplicationController < ActionController::API
     JWT.encode(payload.merge(exp: 15.minutes.from_now.to_i), ENV['jwt_crypt_key'], ALGORITHM)
   end
 
+  def token_refresh
+  	response['auth_token'] = encode_token({ user_id: @current_user.id }) if logged_in?
+  end
+
   def auth_header
     # { Authorization: 'Bearer <token>' }
     request.env['HTTP_AUTHORIZATION']
@@ -42,10 +46,10 @@ class ApplicationController < ActionController::API
     render json: { message: 'You are logged out. Log In please!' }, status: :unauthorized unless logged_in?
   end
 
-  def respond_http(status, message, data, token)
-  	token ||= nil
-  	response.headers['auth_token'] = token
-  	render json: {status: status, message: message, data: data, current_user_token: token}, status: status
+  def respond_http(status, message, data)
+  	# token ||= nil
+  	# response.headers['auth_token'] = token
+  	render json: {status: status, message: message, data: data }, status: status
   end
   private
   	def api_key_check

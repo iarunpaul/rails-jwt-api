@@ -3,16 +3,15 @@ class HotelsController < ApplicationController
   # CREATE hotel as owner or admin
   # post '/hotels'
    def create
-    if @current_user.admin?
-      @hotel = Hotel.create(hotel_params)
-      render json: @hotel, status: 200
-    elsif @current_user.owner?
-      @hotel = Hotel.new(hotel_params)
-      @hotel.owner_id = @current_user.id
-      @hotel.save!
-      render json: @hotel, status: 200
+    if @current_user.admin? || @current_user.owner?
+      hotel = Hotel.new(hotel_params)
+      hotel.owner_id = @current_user.id if @current_user.owner?
+      hotel.save!
+      message = "You have created the hotel records successfully"
+      respond_http(200, message, hotel)
     else
-      render json: {message: "You are not authorized to create a Hotel."}, status: 403
+      message = "You are not authorized to create a Hotel."
+      respond_http(401, message, nil)
     end
   end
 
@@ -62,6 +61,6 @@ class HotelsController < ApplicationController
 
   private
     def hotel_params
-      params.permit(:name, :rating, :description, :rate)
+      params.permit(:name, :rating, :description, :rate, :owner_id)
     end
 end
