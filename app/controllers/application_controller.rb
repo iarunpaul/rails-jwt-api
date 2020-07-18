@@ -55,7 +55,7 @@ class ApplicationController < ActionController::API
   	def api_key_check
   		render json: {
   			message: "Sorry!! Key is missing to access the app" },
-  			status: 403 unless request.headers['api-key'].to_i == 123
+  			status: 403 unless request.headers['api-key'] == ENV['API_KEY']
   	end
 
 end
