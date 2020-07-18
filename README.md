@@ -2,20 +2,13 @@
 
 API Documentation
 ------------------
-<!-- Current User Details
-
-Headers:
-
-Content type: Application/Json
-Request URL: localhost:3000/current user
-api-key: 123
-Authorization: bearer <token>
-METHOD: GET -->
+Visit for testing on Postman :
+https://documenter.getpostman.com/view/12009530/T1DiHgmq?version=latest
 
 User Login
 ------------
 
-POST request takes the username and password as request body parameters and response includes the token issued for authorization along with the user data,message of transaction if User data matches. If no match, info message returns. No ```auth_token``` refresh sent in response headers
+POST request takes the username and password as request body parameters and response includes the token issued for authorization along with the user data,message of transaction if User data matches. If no match, info message returns. No `auth_token` refresh sent in response headers
 
 Request:
 
@@ -356,7 +349,7 @@ Body:
 User Show
 --------------
 
-A GET request that takes username as request parameter finds the user details associated. Only admin can find the record of user by show method. The standard users can get their details by current_user method after logging in
+A GET request that takes `username` as request parameter finds the user details associated. Only `admin` can find the record of user by show method. The standard users can get their details by `current_user` method after logging in
 
 
 
@@ -688,7 +681,7 @@ Body:
 Hotel Update
 ------------------
 Admin can update all hotels with all parameters. Owner can edit his own hotel
-as admin
+
 Request:
 
 Headers:
@@ -884,6 +877,7 @@ Body:
 
 
 List of Bookings relevant to roles
+---------------------------------------------
 
 Admin gets all the lists. Customer gets own list and owner gets bookings in hotel owned.
 Request:
@@ -968,7 +962,7 @@ Body:
 
 Request:
 
-as customer
+as admin
 
 Headers:
 Content type: Application/Json
@@ -1202,7 +1196,7 @@ Body:
 Booking payment checkout
 ---------------------------------------
 
-Takes `id` of the booking and `token` as request parameters and if the payment `token` exists or `true` the booking is updated with `payment_status` as `true` and `booking_status` as `confirmed`. If `token` not exists of `null` or `false` payment fails.
+Takes `id` of the booking and `token` as request parameters and if the payment `token` exists or `true` then the booking is updated with `payment_status` as `true` and `booking_status` as `confirmed`. If `token` not exists or `null` or `false` payment fails.
 
 Request:
 
