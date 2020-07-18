@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
 
 	include Error::ErrorHandler
 
-  before_action :api_key_check, :authorized
+  before_action :api_key_check, :authorized, :token_refresh
 
   ALGORITHM = 'HS256'
 

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   post "delete_hotel", to: "hotels#destroy"
   post "bookings_in_hotel", to: "hotels#bookings"
   post "show_hotel", to: "hotels#show"
-  post "hotels/index", to: "hotels#index"
+  get "hotels/index", to: "hotels#index"
 
   resource :bookings, except: :show
   post "cancel_booking", to: "bookings#cancel_booking"

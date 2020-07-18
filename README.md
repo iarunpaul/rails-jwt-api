@@ -422,6 +422,7 @@ Body:
 
 HOTEL Create
 ---------------------
+Owner and admin can create a Hotel. parameters `name`, `rate` and `rating` and `owner_id` are required parameters. If owner creates the hotel `owner_id` is created as the `owner`.id implicit. `customer` is not permitted to create a Hotel object.
 
 Request:
 By admin user
@@ -462,4 +463,372 @@ Body:{
         "rate": "750.0",
         "owner_id": 10
     }
+}
+
+Request:
+By owner user
+
+Headers:
+Content type: Application/Json
+Request URL: localhost:3000/hotels
+api-key: 123
+Authorization: bearer <token>
+METHOD: POST
+
+Body:
+
+{
+   "name": "SunPoolasdf",
+   "rating": 5,
+   "rate": 1250
+}
+Response:
+
+Headers:
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Referrer-Policy: strict-origin-when-cross-origin
+auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNTk1MDE5ODU5fQ.ht_Ey2jVlUf6fP1HRP_SzJAuXghb3uFiw2za4DYXEpY
+
+Body:
+{
+    "status": 200,
+    "message": "You have created the hotel records successfully",
+    "data": {
+        "id": 10,
+        "name": "SunPoolasdf",
+        "rating": 5,
+        "description": null,
+        "created_at": "2020-07-18T03:35:40.011Z",
+        "updated_at": "2020-07-18T03:35:40.011Z",
+        "rate": "1250.0",
+        "owner_id": 10
+    }
+}
+
+
+HOTEL List
+--------------
+All users can see the list of hotels by authenticating
+
+Request:
+
+Headers:
+Content type: Application/Json
+Request URL: localhost:3000/hotels/index
+api-key: 123
+Authorization: bearer <token>
+METHOD: GET
+
+Response:
+Body:
+
+{
+    "status": 200,
+    "message": "Hotels List:",
+    "data": [
+        {
+            "id": 1,
+            "name": "SunMoon",
+            "rating": 3,
+            "description": "The best class hotel in town!",
+            "created_at": "2020-07-17T12:25:38.961Z",
+            "updated_at": "2020-07-17T12:25:38.961Z",
+            "rate": "1000.0",
+            "owner_id": 2
+        },
+        {
+            "id": 2,
+            "name": "MoonSun",
+            "rating": 3,
+            "description": "The best class hotel in town!",
+            "created_at": "2020-07-17T12:25:38.987Z",
+            "updated_at": "2020-07-17T12:25:38.987Z",
+            "rate": "1000.0",
+            "owner_id": 2
+        },
+        {
+            "id": 3,
+            "name": "SunPool",
+            "rating": 5,
+            "description": null,
+            "created_at": "2020-07-17T21:16:16.514Z",
+            "updated_at": "2020-07-17T21:16:16.514Z",
+            "rate": "750.0",
+            "owner_id": 10
+        },
+        {
+            "id": 4,
+            "name": "SunPool",
+            "rating": 5,
+            "description": null,
+            "created_at": "2020-07-18T03:11:10.864Z",
+            "updated_at": "2020-07-18T03:11:10.864Z",
+            "rate": "750.0",
+            "owner_id": 10
+        },
+        {
+            "id": 5,
+            "name": "SunPool",
+            "rating": 5,
+            "description": null,
+            "created_at": "2020-07-18T03:16:18.721Z",
+            "updated_at": "2020-07-18T03:16:18.721Z",
+            "rate": "1250.0",
+            "owner_id": 10
+        },
+        {
+            "id": 6,
+            "name": "SunPool",
+            "rating": 5,
+            "description": null,
+            "created_at": "2020-07-18T03:20:48.254Z",
+            "updated_at": "2020-07-18T03:20:48.254Z",
+            "rate": "1250.0",
+            "owner_id": 10
+        },
+        {
+            "id": 7,
+            "name": "SunPool",
+            "rating": 5,
+            "description": null,
+            "created_at": "2020-07-18T03:21:05.803Z",
+            "updated_at": "2020-07-18T03:21:05.803Z",
+            "rate": "1250.0",
+            "owner_id": 10
+        },
+        {
+            "id": 8,
+            "name": "SunPoolasdf",
+            "rating": 5,
+            "description": null,
+            "created_at": "2020-07-18T03:21:30.598Z",
+            "updated_at": "2020-07-18T03:21:30.598Z",
+            "rate": "1250.0",
+            "owner_id": 10
+        },
+        {
+            "id": 9,
+            "name": "SunPoolasdf",
+            "rating": 5,
+            "description": null,
+            "created_at": "2020-07-18T03:21:51.526Z",
+            "updated_at": "2020-07-18T03:21:51.526Z",
+            "rate": "1250.0",
+            "owner_id": 10
+        },
+        {
+            "id": 10,
+            "name": "SunPoolasdf",
+            "rating": 5,
+            "description": null,
+            "created_at": "2020-07-18T03:35:40.011Z",
+            "updated_at": "2020-07-18T03:35:40.011Z",
+            "rate": "1250.0",
+            "owner_id": 10
+        },
+        {
+            "id": 11,
+            "name": "SunPool",
+            "rating": 5,
+            "description": null,
+            "created_at": "2020-07-18T03:41:41.725Z",
+            "updated_at": "2020-07-18T03:41:41.725Z",
+            "rate": "1250.0",
+            "owner_id": 11
+        }
+    ]
+}
+
+HOTEL Show
+-------------------
+
+Fetches the details of hotel with `id`
+
+Request:
+
+Headers:
+Content type: Application/Json
+Request URL: localhost:3000/show_hotel
+api-key: 123
+Authorization: bearer <token>
+METHOD: POST
+
+Body:
+
+{
+   "id": 10
+}
+
+Response:
+
+Headers:
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Referrer-Policy: strict-origin-when-cross-origin
+auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNTk1MDE5ODU5fQ.ht_Ey2jVlUf6fP1HRP_SzJAuXghb3uFiw2za4DYXEpY
+
+Body:
+
+{
+    "status": 200,
+    "message": "The hotel details:",
+    "data": {
+        "id": 10,
+        "name": "SunPoolasdf",
+        "rating": 5,
+        "description": null,
+        "created_at": "2020-07-18T03:35:40.011Z",
+        "updated_at": "2020-07-18T03:35:40.011Z",
+        "rate": "1250.0",
+        "owner_id": 10
+    }
+}
+
+Hotel Update
+------------------
+Admin can update all hotels with all parameters. Owner can edit his own hotel
+as admin
+Request:
+
+Headers:
+Content type: Application/Json
+Request URL: localhost:3000/hotels
+api-key: 123
+Authorization: bearer <token>
+METHOD: PUT
+Body:
+{
+   "id": 1,
+   "name": "ChangedAgain",
+   "owner_id": 10
+}
+Response:
+
+Headers:
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Referrer-Policy: strict-origin-when-cross-origin
+auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNTk1MDE5ODU5fQ.ht_Ey2jVlUf6fP1HRP_SzJAuXghb3uFiw2za4DYXEpY
+
+Body:
+{
+    "status": 200,
+    "message": "The hotel ChangedAgain has been updated.",
+    "data": {
+        "id": 1,
+        "name": "ChangedAgain",
+        "owner_id": 10,
+        "rate": "1000.0",
+        "rating": 3,
+        "description": "The best class hotel in town!",
+        "created_at": "2020-07-17T12:25:38.961Z",
+        "updated_at": "2020-07-18T05:10:36.193Z"
+    }
+}
+
+Hotel Delete
+-----------------
+Request:
+
+Headers:
+Content type: Application/Json
+Request URL: localhost:3000/delete_hotel
+api-key: 123
+Authorization: bearer <token>
+METHOD: POST
+
+Body:
+
+{
+   "id": 3
+}
+Response:
+
+Headers:
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Referrer-Policy: strict-origin-when-cross-origin
+auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNTk1MDE5ODU5fQ.ht_Ey2jVlUf6fP1HRP_SzJAuXghb3uFiw2za4DYXEpY
+
+Body:
+
+{
+    "status": 200,
+    "message": "You have successfully deleted the Hotel Changed's records.",
+    "data": null
+}
+
+Bookings list for a Hotel
+-------------------------------------
+Lists all the bookings in a hotel by `id`
+
+Request:
+
+Headers:
+Content type: Application/Json
+Request URL: localhost:3000/bookings_in_hotel
+api-key: 123
+Authorization: bearer <token>
+METHOD: POST
+
+Body:
+{
+   "id": 2
+}
+
+Response:
+Headers:
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Referrer-Policy: strict-origin-when-cross-origin
+auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNTk1MDE5ODU5fQ.ht_Ey2jVlUf6fP1HRP_SzJAuXghb3uFiw2za4DYXEpY
+
+
+Body:
+
+{
+    "status": 200,
+    "message": "The list of bookings for the Hotel is:",
+    "data": [
+        {
+            "id": 4,
+            "hotel_id": 2,
+            "user_id": 3,
+            "payment_status": false,
+            "created_at": "2020-07-17T12:25:39.132Z",
+            "updated_at": "2020-07-17T12:25:39.132Z",
+            "adults": 3,
+            "children": 1,
+            "rate": null,
+            "amount": null,
+            "booking_status": "pending"
+        },
+        {
+            "id": 5,
+            "hotel_id": 2,
+            "user_id": 4,
+            "payment_status": false,
+            "created_at": "2020-07-17T12:25:39.156Z",
+            "updated_at": "2020-07-17T12:25:39.156Z",
+            "adults": 3,
+            "children": 1,
+            "rate": null,
+            "amount": null,
+            "booking_status": "pending"
+        },
+        {
+            "id": 6,
+            "hotel_id": 2,
+            "user_id": 1,
+            "payment_status": false,
+            "created_at": "2020-07-17T12:25:39.181Z",
+            "updated_at": "2020-07-17T12:25:39.181Z",
+            "adults": 3,
+            "children": 1,
+            "rate": null,
+            "amount": null,
+            "booking_status": "pending"
+        }
+    ]
 }
