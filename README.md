@@ -1109,7 +1109,7 @@ Request:
 
 Headers:
 Content type: Application/Json
-Request URL: localhost:3000/bookings/list
+Request URL: localhost:3000/show_booking
 api-key: 123
 Authorization: bearer <token>
 METHOD: POST
@@ -1148,5 +1148,138 @@ Body:
         "rate": null,
         "amount": null,
         "booking_status": "pending"
+    }
+}
+
+Booking Update
+----------------------------
+Updates a booking by its `id`. Only `admin` and respective hotel `owner` can update a record.
+
+Request:
+
+Headers:
+Content type: Application/Json
+Request URL: localhost:3000/bookings
+api-key: 123
+Authorization: bearer <token>
+METHOD: PUT
+
+Body:
+
+{
+   "id": 2,
+   "user_id": 3
+}
+
+Response:
+
+Headers:
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Referrer-Policy: strict-origin-when-cross-origin
+auth_token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1OTUwNTc1MDd9.qeZEA48TfuT-Q8v6fJNofSoQYhxoD_G8xb96uLwzUbE
+
+Body:
+
+{
+    "status": 200,
+    "message": "Booking updated.",
+    "data": {
+        "hotel_id": 1,
+        "id": 2,
+        "user_id": 3,
+        "payment_status": false,
+        "created_at": "2020-07-18T06:56:12.333Z",
+        "updated_at": "2020-07-18T07:45:23.015Z",
+        "adults": 3,
+        "children": 1,
+        "rate": null,
+        "amount": null,
+        "booking_status": "pending"
+    }
+}
+
+Booking payment checkout
+---------------------------------------
+
+Takes `id` of the booking and `token` as request parameters and if the payment `token` exists or `true` the booking is updated with `payment_status` as `true` and `booking_status` as `confirmed`. If `token` not exists of `null` or `false` payment fails.
+
+Request:
+
+Headers:
+Content type: Application/Json
+Request URL: localhost:3000/checkout
+api-key: 123
+Authorization: bearer <token>
+METHOD: POST
+
+{
+   "id": 9,
+   "token": true
+}
+Response:
+Headers:
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Referrer-Policy: strict-origin-when-cross-origin
+auth_token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1OTUwNjgyODR9.lpXhlwH8e_ZF-Mm_uNbIq8RC1Tcpd4IaAm_hV7F0MHk
+
+{
+    "status": 200,
+    "message": "Payment successful!",
+    "data": {
+        "payment_status": true,
+        "id": 9,
+        "booking_status": "confirmed",
+        "user_id": 5,
+        "hotel_id": 3,
+        "created_at": "2020-07-18T08:16:17.726Z",
+        "updated_at": "2020-07-18T10:06:16.379Z",
+        "adults": 3,
+        "children": null,
+        "rate": "1250.0",
+        "amount": "3750.0"
+    }
+}
+
+Booking Cancel
+---------------------------
+Takes `id` of the booking and updates the `booking_status` to `cancelled` booking if either the current user has booked the booking or user is admin.
+
+Request:
+
+Headers:
+Content type: Application/Json
+Request URL: localhost:3000/cancel_booking
+api-key: 123
+Authorization: bearer <token>
+METHOD: POST
+
+{
+   "id": 12
+}
+
+Response:
+Headers:
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Referrer-Policy: strict-origin-when-cross-origin
+auth_token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1OTUwNjkyNzl9.d4Qy3nwaGLytXVkc09Hd0B1Ls1nJsI01khrkzd9q7fg
+
+{
+    "status": 200,
+    "message": "Booking cancelled!",
+    "data": {
+        "user_id": 3,
+        "id": 12,
+        "booking_status": "cancelled",
+        "hotel_id": 3,
+        "payment_status": false,
+        "created_at": "2020-07-18T10:31:46.095Z",
+        "updated_at": "2020-07-18T10:32:59.497Z",
+        "adults": 1,
+        "children": null,
+        "rate": "1250.0",
+        "amount": "1250.0"
     }
 }

@@ -52,35 +52,41 @@ class BookingsController < ApplicationController
     message = "Booking updated."
 		respond_http(200, message, booking)
   	else
-  		render json: {message: "You are not permitted to edit the booking."}, status: 403
+      message = "You are not permitted to edit the booking."
+  		respond_http(403, message, booking)
   	end
   end
 
   def cancel_booking
-  	@booking = Booking.find(params[:id])
-  	if @current_user.admin? || @current_user.id == @booking.user_id
-  		@booking.booking_status = "cancelled"
-  		@booking.save!
-  		render json: @booking, status: 200
+  	booking = Booking.find(params[:id])
+  	if @current_user.admin? || @current_user.id == booking.user_id
+  		booking.cancelled!
+  		booking.save!
+      message = "Booking cancelled!"
+  		respond_http(200, message, booking)
   	else
-  		render json: {message: "You are not authorized for the action"}, status: 403
-	end
+      message = "You are not authorized for the action"
+  		respond_http(403, message, booking)
+    end
   end
   # CHECKOUT PAYMENT UPDATE
 	# payment token IS VERIFIED and UPDATED against booking
 	# post "/checkout"
   def checkout
 		if params[:token]
-			if @booking = Booking.find(params[:id])
-				@booking.payment_status = true
-				@booking.booking_status = "confirmed"
-				@booking.save!
-				render json: @booking, status: 200
+			if booking = Booking.find(params[:id])
+				booking.payment_status = true
+				booking.confirmed!
+				booking.save!
+        message = "Payment successful!"
+				respond_http(200, message, booking)
 			else
-	      render json: { error: "Booking with id #{params[:id]} not found." }, status: :not_found
+        message = "Booking with id #{params[:id]} not found."
+	      respond_http(422, message, nil)
 	    end
 		else
-			render json: { message: "Payment failed."}
+      message = "Payment failed."
+			respond_http(422, message, booking)
 		end
   end
 
