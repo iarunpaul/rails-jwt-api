@@ -832,3 +832,321 @@ Body:
         }
     ]
 }
+
+
+Bookings Creation
+-------------------------------
+
+Creates bookings by POST request `hotel_id` and `user_id` required. `adults` and `children` optional. `user_id` is set as current user id for users other than admin. `payment_status` set to default `false` on creation and `booking_status` to `pending` and they change to `true` and `confirmed` respectively upon successful payment.
+
+Request:
+
+Headers:
+Content type: Application/Json
+Request URL: localhost:3000/bookings
+api-key: 123
+Authorization: bearer <token>
+METHOD: POST
+
+Body:
+{
+   "hotel_id": 2,
+   "adults": 3,
+   "children": 3
+}
+
+Response:
+Headers:
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Referrer-Policy: strict-origin-when-cross-origin
+auth_token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1OTUwNTY1MDd9.-UElLHs18D-qBPLrh_pYn2rRoq7Y64MK6u6LKi_7Lls
+
+
+Body:
+{
+    "status": 200,
+    "message": "Booking with id 8 created",
+    "data": {
+        "id": 8,
+        "hotel_id": 2,
+        "user_id": 3,
+        "payment_status": false,
+        "created_at": "2020-07-18T07:00:07.818Z",
+        "updated_at": "2020-07-18T07:00:07.818Z",
+        "adults": 3,
+        "children": 3,
+        "rate": "1000.0",
+        "amount": "4500.0",
+        "booking_status": "pending"
+    }
+}
+
+
+List of Bookings relevant to roles
+
+Admin gets all the lists. Customer gets own list and owner gets bookings in hotel owned.
+Request:
+
+as customer
+
+Headers:
+Content type: Application/Json
+Request URL: localhost:3000/bookings/list
+api-key: 123
+Authorization: bearer <token>
+METHOD: GET
+
+Response:
+Response:
+Headers:
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Referrer-Policy: strict-origin-when-cross-origin
+auth_token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1OTUwNTY1MDd9.-UElLHs18D-qBPLrh_pYn2rRoq7Y64MK6u6LKi_7Lls
+
+Body:
+
+{
+    "status": 200,
+    "message": "The relevant bookings for you:",
+    "data": [
+        {
+            "id": 1,
+            "hotel_id": 1,
+            "user_id": 3,
+            "payment_status": false,
+            "created_at": "2020-07-18T06:56:12.300Z",
+            "updated_at": "2020-07-18T06:56:12.300Z",
+            "adults": 3,
+            "children": 1,
+            "rate": null,
+            "amount": null,
+            "booking_status": "pending"
+        },
+        {
+            "id": 4,
+            "hotel_id": 2,
+            "user_id": 3,
+            "payment_status": false,
+            "created_at": "2020-07-18T06:56:12.400Z",
+            "updated_at": "2020-07-18T06:56:12.400Z",
+            "adults": 3,
+            "children": 1,
+            "rate": null,
+            "amount": null,
+            "booking_status": "pending"
+        },
+        {
+            "id": 7,
+            "hotel_id": 2,
+            "user_id": 3,
+            "payment_status": false,
+            "created_at": "2020-07-18T06:58:54.301Z",
+            "updated_at": "2020-07-18T06:58:54.301Z",
+            "adults": 1,
+            "children": null,
+            "rate": "1000.0",
+            "amount": "1000.0",
+            "booking_status": "pending"
+        },
+        {
+            "id": 8,
+            "hotel_id": 2,
+            "user_id": 3,
+            "payment_status": false,
+            "created_at": "2020-07-18T07:00:07.818Z",
+            "updated_at": "2020-07-18T07:00:07.818Z",
+            "adults": 3,
+            "children": 3,
+            "rate": "1000.0",
+            "amount": "4500.0",
+            "booking_status": "pending"
+        }
+    ]
+}
+
+Request:
+
+as customer
+
+Headers:
+Content type: Application/Json
+Request URL: localhost:3000/bookings/list
+api-key: 123
+Authorization: bearer <token>
+METHOD: GET
+
+
+Response:
+
+Headers:
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Referrer-Policy: strict-origin-when-cross-origin
+auth_token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1OTUwNTc1MDd9.qeZEA48TfuT-Q8v6fJNofSoQYhxoD_G8xb96uLwzUbE
+
+Body:
+
+{
+    "status": 200,
+    "message": "The relevant bookings for you:",
+    "data": [
+        {
+            "id": 1,
+            "hotel_id": 1,
+            "user_id": 3,
+            "payment_status": false,
+            "created_at": "2020-07-18T06:56:12.300Z",
+            "updated_at": "2020-07-18T06:56:12.300Z",
+            "adults": 3,
+            "children": 1,
+            "rate": null,
+            "amount": null,
+            "booking_status": "pending"
+        },
+        {
+            "id": 2,
+            "hotel_id": 1,
+            "user_id": 4,
+            "payment_status": false,
+            "created_at": "2020-07-18T06:56:12.333Z",
+            "updated_at": "2020-07-18T06:56:12.333Z",
+            "adults": 3,
+            "children": 1,
+            "rate": null,
+            "amount": null,
+            "booking_status": "pending"
+        },
+        {
+            "id": 3,
+            "hotel_id": 1,
+            "user_id": 1,
+            "payment_status": false,
+            "created_at": "2020-07-18T06:56:12.367Z",
+            "updated_at": "2020-07-18T06:56:12.367Z",
+            "adults": 3,
+            "children": 1,
+            "rate": null,
+            "amount": null,
+            "booking_status": "pending"
+        },
+        {
+            "id": 4,
+            "hotel_id": 2,
+            "user_id": 3,
+            "payment_status": false,
+            "created_at": "2020-07-18T06:56:12.400Z",
+            "updated_at": "2020-07-18T06:56:12.400Z",
+            "adults": 3,
+            "children": 1,
+            "rate": null,
+            "amount": null,
+            "booking_status": "pending"
+        },
+        {
+            "id": 5,
+            "hotel_id": 2,
+            "user_id": 4,
+            "payment_status": false,
+            "created_at": "2020-07-18T06:56:12.437Z",
+            "updated_at": "2020-07-18T06:56:12.437Z",
+            "adults": 3,
+            "children": 1,
+            "rate": null,
+            "amount": null,
+            "booking_status": "pending"
+        },
+        {
+            "id": 6,
+            "hotel_id": 2,
+            "user_id": 1,
+            "payment_status": false,
+            "created_at": "2020-07-18T06:56:12.471Z",
+            "updated_at": "2020-07-18T06:56:12.471Z",
+            "adults": 3,
+            "children": 1,
+            "rate": null,
+            "amount": null,
+            "booking_status": "pending"
+        },
+        {
+            "id": 7,
+            "hotel_id": 2,
+            "user_id": 3,
+            "payment_status": false,
+            "created_at": "2020-07-18T06:58:54.301Z",
+            "updated_at": "2020-07-18T06:58:54.301Z",
+            "adults": 1,
+            "children": null,
+            "rate": "1000.0",
+            "amount": "1000.0",
+            "booking_status": "pending"
+        },
+        {
+            "id": 8,
+            "hotel_id": 2,
+            "user_id": 3,
+            "payment_status": false,
+            "created_at": "2020-07-18T07:00:07.818Z",
+            "updated_at": "2020-07-18T07:00:07.818Z",
+            "adults": 3,
+            "children": 3,
+            "rate": "1000.0",
+            "amount": "4500.0",
+            "booking_status": "pending"
+        }
+    ]
+}
+
+
+Show Booking
+----------------------------
+Gets a booking by `id`
+
+
+Request:
+
+Headers:
+Content type: Application/Json
+Request URL: localhost:3000/bookings/list
+api-key: 123
+Authorization: bearer <token>
+METHOD: POST
+
+Body:
+
+{
+   "id": 2
+}
+
+
+
+Response:
+
+Headers:
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Referrer-Policy: strict-origin-when-cross-origin
+auth_token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1OTUwNTc1MDd9.qeZEA48TfuT-Q8v6fJNofSoQYhxoD_G8xb96uLwzUbE
+
+
+Body:
+
+{
+    "status": 200,
+    "message": "The booking with id 2 is:",
+    "data": {
+        "id": 2,
+        "hotel_id": 1,
+        "user_id": 4,
+        "payment_status": false,
+        "created_at": "2020-07-18T06:56:12.333Z",
+        "updated_at": "2020-07-18T06:56:12.333Z",
+        "adults": 3,
+        "children": 1,
+        "rate": null,
+        "amount": null,
+        "booking_status": "pending"
+    }
+}

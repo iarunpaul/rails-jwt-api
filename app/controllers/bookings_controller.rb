@@ -1,15 +1,18 @@
 class BookingsController < ApplicationController
   # CREATE BOOKING post '/bookings'
   def create
-  	@booking = Booking.new(booking_params)
-  	@booking.user_id = @current_user.id unless @current_user.admin?
-  	@hotel = Hotel.find(params[:hotel_id])
-  	@booking.rate = @hotel.rate
-  	@booking.amount = @booking.rate*( @booking.adults + @booking.children.to_f/2 )
-  	if @booking.save!
-  		render json: @booking
+  	booking = Booking.new(booking_params)
+  	booking.user_id = @current_user.id unless @current_user.admin?
+  	hotel = Hotel.find(params[:hotel_id])
+  	booking.rate = hotel.rate
+  	booking.amount = booking.rate*( booking.adults + booking.children.to_f/2 )
+  	if booking.valid?
+      booking.save!
+      message = "Booking with id #{booking.id} created"
+  		respond_http(200, message, booking)
   	else
-  		render json: {message: "Booking not created."}, status: 404
+      message = "Booking not valid."
+  		respond_http(422, message, nil)
 		end
   end
 
@@ -17,36 +20,39 @@ class BookingsController < ApplicationController
   # get '/bookings/list'
   def index
   	if @current_user.admin?
-  		@bookings = Booking.all
+  		bookings = Booking.all
   	elsif @current_user.owner?
-  		@hotels = Hotel.includes(:bookings).where(owner_id: @current_user.id)# eager loading
-  		@bookings = []
-  		@hotels.each do |hotel|
-  			@bookings.push(hotel.bookings)
+  		hotels = Hotel.includes(:bookings).where(owner_id: @current_user.id)# eager loading
+  		bookings = []
+  		hotels.each do |hotel|
+  			bookings.push(hotel.bookings)
   		end
   	else
-  		@bookings = @current_user.bookings
+  		bookings = @current_user.bookings
   	end
-  	render json: @bookings, status: 200
+    message = "The relevant bookings for you:"
+  	respond_http(200, message, bookings)
   end
 
   # SHOW booking
   # post '/show_booking'
   def show
   	booking = Booking.find(params[:id])
-  	render json: booking, status: 200
+    message = "The booking with id #{booking.id} is:"
+  	respond_http(200, message, booking)
   end
 
   # UPDATE booking is only allowed to an admin user or an owner
   # put '/bookings'
   def update
   	booking = Booking.find(params[:id])
-  	if @current_user.admin? || @current_user.id == Hotel.find_by(booking.hotel_id).owner_id
-
+    hotel_owner = Hotel.find(booking.hotel_id).owner_id
+  	if @current_user.admin? || @current_user.id == hotel_owner
 		booking.update!(booking_params)
-		render json: booking, status: 200
+    message = "Booking updated."
+		respond_http(200, message, booking)
   	else
-  		render json: {message: "You are not permitted to edit any booking."}, status: 403
+  		render json: {message: "You are not permitted to edit the booking."}, status: 403
   	end
   end
 
