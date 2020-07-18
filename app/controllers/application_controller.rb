@@ -11,7 +11,7 @@ class ApplicationController < ActionController::API
   end
 
   def token_refresh
-  	response['auth_token'] = encode_token({ user_id: @current_user.id }) if logged_in?
+  	response.headers['auth_token'] = encode_token({ user_id: @current_user.id }) if logged_in?
   end
 
   def auth_header
