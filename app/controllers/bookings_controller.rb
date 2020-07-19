@@ -9,10 +9,10 @@ class BookingsController < ApplicationController
   	if booking.valid?
       booking.save!
       message = "Booking with id #{booking.id} created"
-  		respond_http(200, message, booking)
+  		respond_http(error: nil, message: message, booking_created: booking)
   	else
       message = "Booking not valid."
-  		respond_http(422, message, nil)
+  		respond_http(status: 406, error: :attribute_error, message: message)
 		end
   end
 
@@ -31,7 +31,7 @@ class BookingsController < ApplicationController
   		bookings = @current_user.bookings
   	end
     message = "The relevant bookings for you:"
-  	respond_http(200, message, bookings)
+  	respond_http(error: nil, message: message, booking_list: bookings)
   end
 
   # SHOW booking
@@ -39,7 +39,7 @@ class BookingsController < ApplicationController
   def show
   	booking = Booking.find(params[:id])
     message = "The booking with id #{booking.id} is:"
-  	respond_http(200, message, booking)
+  	respond_http(error: nil, message: message, booking_details: booking)
   end
 
   # UPDATE booking is only allowed to an admin user or an owner
@@ -50,10 +50,10 @@ class BookingsController < ApplicationController
   	if @current_user.admin? || @current_user.id == hotel_owner
 		booking.update!(booking_params)
     message = "Booking updated."
-		respond_http(200, message, booking)
+		respond_http(error: nil, message: message, updated_booking: booking)
   	else
       message = "You are not permitted to edit the booking."
-  		respond_http(403, message, booking)
+  		respond_http(status: 403, error: :forbidden_error, message: message, booking_details: booking)
   	end
   end
 
@@ -63,10 +63,10 @@ class BookingsController < ApplicationController
   		booking.cancelled!
   		booking.save!
       message = "Booking cancelled!"
-  		respond_http(200, message, booking)
+  		respond_http(error: nil, message: message, cancelled_booking: booking)
   	else
       message = "You are not authorized for the action"
-  		respond_http(403, message, booking)
+  		respond_http(status: 403, error: :forbidden_error, message: message, booking_details: booking)
     end
   end
   # CHECKOUT PAYMENT UPDATE
@@ -79,14 +79,14 @@ class BookingsController < ApplicationController
 				booking.confirmed!
 				booking.save!
         message = "Payment successful!"
-				respond_http(200, message, booking)
+				respond_http(error: nil, message: message, paid_booking: booking)
 			else
         message = "Booking with id #{params[:id]} not found."
-	      respond_http(422, message, nil)
+	      respond_http(status: 404, error: :not_found_error, message: message)
 	    end
 		else
       message = "Payment failed."
-			respond_http(422, message, booking)
+			respond_http(status: 422, error: :unprocessable_error, message: message, booking_details: booking)
 		end
   end
 

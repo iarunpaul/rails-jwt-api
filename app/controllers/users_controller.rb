@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   		else
         error = "attribute_error"
   			message = "Void/Invalid attributes."
-  			respond_http(status: 403, error: error, message: message)
+  			respond_http(status: 406, error: error, message: message)
   		end
     else
     	user = User.new(user_params)
@@ -28,7 +28,7 @@ class UsersController < ApplicationController
 	      respond_http(error: nil, messsage: message, user_data: data)
 	    else
 	      message = "Void/Invalid attributes."
-	  		respond_http(status: 403, message: message, data: nil)
+	  		respond_http(status: 403,error: :attribute_error, message: message)
 	    end
     end
   end
@@ -63,7 +63,7 @@ class UsersController < ApplicationController
   		respond_http(error: nil, message: message, user_data: data)
   	else
   		message = "Only admin can view user details."
-      error = :authorization_error
+      error = :forbidden_error
   		data = "permission denied to show data"
   		respond_http(status: 403, error: error, message: message, data: data)
   	end
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
 				data = { user: user }
         error = :active_record_error
        	message = "Attribute error/Record not exists, User not updated"
-      	respond_http(status: 403, error: error, message: message, user_data: data)
+      	respond_http(status: 404, error: error, message: message, user_data: data)
 			end
   	else
   		user = User.find(@current_user.id)
@@ -92,8 +92,8 @@ class UsersController < ApplicationController
       	respond_http(error: nil, message: message, user_updated: data)
     	else
 	      data = { user: user }
-        error = :active_record_error
-       	message = "Attribute error, User not updated"
+        error = :forbidden_error
+       	message = "Unpermitted attribute error, User not updated"
       	respond_http(status: 403, error: error, message: message, user_data: data)
       end
   	end

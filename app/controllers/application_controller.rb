@@ -47,15 +47,14 @@ class ApplicationController < ActionController::API
   end
 
   def respond_http(status: 200, **_json_hash)
-  	# token ||= nil
-  	# response.headers['auth_token'] = token
   	render json: {status: status, data: _json_hash }, status: status
   end
+
   private
   	def api_key_check
   		render json: {
-  			message: "Sorry!! Key is missing to access the app" },
-  			status: 403 unless request.headers['api-key'] == ENV['API_KEY']
+  				message: "Sorry!! Key is missing to access the app" },
+  				status: 401 unless request.headers['api-key'] == ENV['API_KEY']
   	end
 
 end
