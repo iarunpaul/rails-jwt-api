@@ -4,7 +4,7 @@ RSpec.describe 'Users API', type: :request do
   let(:user) { build(:user) }
   let(:headers) { valid_headers.except('Authorization') }
   let(:valid_attributes) do
-    attributes_for(:user)
+    attributes_for(:user, role: "customer" )
   end
 
   # User signup test suite
@@ -41,7 +41,11 @@ RSpec.describe 'Users API', type: :request do
       let(:user) { create(:user) }
       let(:headers) { valid_headers }
       let(:current_user) { (AuthorizeApiRequest.new(headers).user) }
-      before { post '/signup', params: {"username": "Admin", "password": "password", "email": "email@email.com", "role": "admin"}.to_json, headers: headers }
+      let(:user_params) { build(:user) }
+      # let(:admin_attributes) do
+      #   attributes_for(:user_params, role: "admin")
+      # end
+      before { post '/signup', params: { user_params, role: "admin" }.to_json, headers: headers }
 
       it 'expects the current user an admin' do
         expect(current_user.role).to eq("admin")
