@@ -41,7 +41,6 @@ RSpec.describe 'Users API', type: :request do
       let(:user) { create(:user) }
       let(:headers) { valid_headers }
       # let(:current_user) { (AuthorizeApiRequest.new(headers).user) }
-      # let(:user_params)
       let(:admin_attributes) do
         attributes_for(:user, role: "admin")
       end

@@ -49,9 +49,9 @@ class ApplicationController < ActionController::API
   #   render json: { message: 'You are logged out. Log In please!' }, status: :unauthorized unless logged_in?
   # end
 
-  # def respond_http(status: 200, **_json_hash)
-  # 	render json: {status: status, data: _json_hash }, status: status
-  # end
+  def respond_http(status: 200, **_json_hash)
+  	render json: {status: status, data: _json_hash }, status: status
+  end
 
   # private
   # 	def api_key_check

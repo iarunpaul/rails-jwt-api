@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :hotel do
-  	name { Faker::StarWars.character }
-    owner_id { Faker::Number.number(10) }
-    rating { Faker::Number.number(10) }
-    rate { Faker::Number.number(10) }
+  	name { Faker::Name.name }
+    owner_id { Faker::Number.number(digits: 10) }
+    rating { Faker::Number.number(digits: 10) }
+    rate { Faker::Number.number(digits: 10) }
   end
 end
