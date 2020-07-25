@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Users API', type: :request do
-  let(:user) { build(:user) }
+  let(:user) { build(:user, role: "customer") }
   let(:headers) { valid_headers.except('Authorization') }
   let(:valid_attributes) do
     attributes_for(:user, role: "customer" )
@@ -40,21 +40,18 @@ RSpec.describe 'Users API', type: :request do
     context 'when valid request from admin user' do
       let(:user) { create(:user) }
       let(:headers) { valid_headers }
-      let(:current_user) { (AuthorizeApiRequest.new(headers).user) }
+      # let(:current_user) { (AuthorizeApiRequest.new(headers).user) }
       # let(:user_params)
-      # let(:admin_attributes) do
-      #   attributes_for(:user_params, role: "admin")
-      # end
-      before { post '/signup', params: { username: "admin", password: "password", role: "admin" }.to_json, headers: headers }
+      let(:admin_attributes) do
+        attributes_for(:user, role: "admin")
+      end
+      before { post '/signup', params: admin_attributes.to_json, headers: headers }
 
       it 'expects the current user an admin' do
-        expect(current_user.role).to eq("admin")
-      end
-      it 'creates a new user' do
-        expect(response).to have_http_status(201)
-      end
-      it 'creates an admin role for new user' do
         expect(user.role).to eq("admin")
+      end
+      it 'creates a new admin user' do
+        expect(response).to have_http_status(201)
       end
 
       it 'returns success message' do
