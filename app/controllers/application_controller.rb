@@ -49,6 +49,11 @@ class ApplicationController < ActionController::API
   #   render json: { message: 'You are logged out. Log In please!' }, status: :unauthorized unless logged_in?
   # end
 
+  # handles response to render in jason format
+  # takes status and data in key value pairs and renders
+  # @param status [{Key=>Value}] default set to 200
+  # @param _json_hash [Hash{Key=>Value}] all the data send in key value pairs goes here
+  # @return [Resposne]
   def respond_http(status: 200, **_json_hash)
   	render json: {status: status, data: _json_hash }, status: status
   end
@@ -60,17 +65,27 @@ class ApplicationController < ActionController::API
   # 				status: 401 unless request.headers['api-key'] == ENV['API_KEY']
   # 	end
   #
-     # called before every action on controllers
+  # called before every action on controllers
   before_action :authorize_with_key, :authorize_request
+  # reads the current authorized user
+  # @return [Hash{Key=>Value}]
   attr_reader :current_user
 
   private
 
+  # @!method authorize_request
   # Check for valid request token and return user
+  # @!scope class
+  # @!visibility private
+  # @return [Hash{Key=>Value}] the authorized signed in user
   def authorize_request
     @current_user = (AuthorizeApiRequest.new(request.headers).call)[:user]
   end
-
+  # @!method authorize_with_key
+  # Check for valid api key and return response
+  # @!scope class
+  # @!visibility private
+  # @return [Error, nil] return error if key is missing/invalid. Can be nil if key matches
   def authorize_with_key
     raise(ExceptionHandler::MissingApiKey, Message.missing_key) if request.headers['api-key'] != 'api-123'
   end

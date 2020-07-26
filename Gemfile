@@ -36,6 +36,9 @@ group :development, :test do
   gem 'rubocop-rspec'
   gem 'rubocop-faker'
   gem 'rails-controller-testing'
+  gem 'yard'
+  gem 'yard-rspec'
+  gem 'rdoc'
 end
 # test gems
 group :test do

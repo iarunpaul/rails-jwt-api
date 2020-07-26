@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
   	if booking.valid?
       booking.save!
       message = "Booking with id #{booking.id} created"
-  		respond_http(error: nil, message: message, booking_created: booking)
+  		respond_http(status: :created, error: nil, message: message, booking_created: booking)
   	else
       message = "Booking not valid."
   		respond_http(status: 406, error: :attribute_error, message: message)

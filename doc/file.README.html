@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.25
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "README";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="file_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-README">README</h1>
+
+<h2 id="label-API+Documentation">API Documentation</h2>
+
+<p>Visit for testing on Postman : <a href="https://documenter.getpostman.com/view/12009530/T1DiHgmq?version=latest">documenter.getpostman.com/view/12009530/T1DiHgmq?version=latest</a></p>
+
+<h2 id="label-User+Login">User Login</h2>
+
+<p>POST request takes the username and password as request body parameters and response includes the token issued for authorization along with the user data,message of transaction if User data matches. If no match, info message returns. No <code>auth_token</code> refresh sent in response headers</p>
+
+<p>Request:</p>
+
+<p>Headers:</p>
+
+<p>Content type: Application/Json Request URL: localhost:3000/login api-key: 123</p>
+
+<p>METHOD: POST</p>
+
+<p>Body:</p>
+
+<p>{  “username”: “admin”,  “password”: “password” }</p>
+
+<p>Response:</p>
+
+<p>Headers:</p>
+
+<p>Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin</p>
+
+<p>Body:</p>
+
+<p>{  “status”: 200,  “message”: “User logged in successfully”,  “data”: {  “user”: {  “id”: 1,  “username”: “admin”,  “password_digest”: “$2a$12$8bOTiNvAJ232y0ujayte3uVCYMghGBgNrVBKI9bm4uFcu4QyVXy/O”,  “email”: “user@example.com”,  “role”: “admin”,  “created_at”: “2020-07-17T12:25:38.120Z”,  “updated_at”: “2020-07-17T12:25:38.120Z”  },  “token”: “eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1OTUwMTE5OTd9.OsfsS-Anf6OHQSy96A_J7TisoadMFPGzIDwtiQqiTbg”  } }</p>
+
+<h2 id="label-USER+CREATE">USER CREATE</h2>
+
+<p>Takes the <code>username</code> and <code>password</code> as required parametes and <code>role</code>(default <code>customer</code>) and <code>email</code> as optional from request body with <code>Bearer token</code> from header request that verifies user details. If the authenticated user is <code>admin</code> permissions are granted to create <code>admin</code> user in addition to <code>owner</code> and <code>customer</code> users creation privillages. Anything except <code>admin</code> token is given as valid <code>Auth token</code>, then parameters valid for a user creation will create a user except with <code>role: admin</code>. Refreshes the token for admin user whenever action runs and sends response header refreshed token each time as <code>auth_token</code></p>
+
+<p>test data for admin user Request:</p>
+
+<p>Content type: Application/Json Request URL: localhost:3000/users api-key: 123 Authorization: bearer &lt;token&gt; METHOD: POST</p>
+
+<p>Body:</p>
+
+<p>{  “username”: “customer4”,  “password”: “password”,  “email”: “customertest2@email.com”,  “role”: “customer” }</p>
+
+<p>Response:</p>
+
+<p>Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1OTUwMTQ3ODd9.XgIWSOsmg2Ex0JzQ6jCu4oKAmfMsgNtDTZsVutJ4XnQ</p>
+
+<p>Body: {  “status”: 200,  “message”: “User with id 9 created successfully”,  “data”: {  “user”: {  “id”: 9,  “username”: “customer4”,  “password_digest”: “$2a$12$.SXCTs3VuXBdrbrF8zQRke.eBRIAOecUT5jX3X9R/AHEa.qEBwo86”,  “email”: “customertest2@email.com”,  “role”: “customer”,  “created_at”: “2020-07-17T19:24:47.888Z”,  “updated_at”: “2020-07-17T19:24:47.888Z”  },  “user_token”: “eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo5LCJleHAiOjE1OTUwMTQ3ODd9.K_v9_T67HMAz7wiJgnnz9dV4rYyrD0DwjNHN6fm1GU8”  } }</p>
+
+<p>test data without authorization Request:</p>
+
+<p>Content type: Application/Json Request URL: localhost:3000/users api-key: 123 Authorization: bearer &lt;token&gt; METHOD: POST</p>
+
+<p>Body: {  “username”: “owner”,  “password”: “password”,  “email”: “owner@email.com”,  “role”: “owner” }</p>
+
+<p>Response:</p>
+
+<p>Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin</p>
+
+<p>Body: {  “status”: 200,  “message”: “User created successfully”,  “data”: {  “user”: {  “id”: 10,  “username”: “owner”,  “password_digest”: “$2a$12$xleVL2nJ4n2Mlc.GClMZC.Yku673TkjbO6svTw1U38mszC3uXvCHS”,  “email”: “owner@email.com”,  “role”: “owner”,  “created_at”: “2020-07-17T19:29:56.503Z”,  “updated_at”: “2020-07-17T19:29:56.503Z”  },  “user_token”: “eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNTk1MDE1MDk2fQ.bjuOCoDUHFsArTFeV0Y0-dTVqZLma3NSp1hMF6mSuLw”  } }</p>
+
+<h2 id="label-CURRENT+USER">CURRENT USER</h2>
+
+<p>A GET request that takes the <code>Bearer token</code> and gives the current signed in user if any. Refreshes the current user token by a before_action hook and sends the response header <code>auth_token</code></p>
+
+<p>Request:</p>
+
+<p>Content type: Application/Json Request URL: localhost:3000/current_user api-key: 123 Authorization: Bearer &lt;token&gt; METHOD: GET</p>
+
+<p>Response:</p>
+
+<p>Headers:</p>
+
+<p>Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1OTUwMTM5MjN9.ByrNw8QvOnrpoY3KpFD6Xr561oT5qb2B0GtGPIw4_Us</p>
+
+<p>Body:</p>
+
+<p>{  “status”: 200,  “message”: “You are logged in as:”,  “data”: {  “id”: 1,  “username”: “admin”,  “password_digest”: “$2a$12$8bOTiNvAJ232y0ujayte3uVCYMghGBgNrVBKI9bm4uFcu4QyVXy/O”,  “email”: “user@example.com”,  “role”: “admin”,  “created_at”: “2020-07-17T12:25:38.120Z”,  “updated_at”: “2020-07-17T12:25:38.120Z”  } }</p>
+
+<h2 id="label-User+Update">User Update</h2>
+
+<p>A PUT request that updates the attributes of a User. If the user is not an admin they can update any fields except for the role as “admin” value. The admin can find the user by username and update any attribute including the role assignation.</p>
+
+<p>Request:</p>
+
+<p>As admin user authorized update</p>
+
+<p>Content type: Application/Json Request URL: localhost:3000/users api-key: 123 Authorization: bearer &lt;token&gt; METHOD: PUT Body:</p>
+
+<p>{  “username”: “customer”,  “role”: “admin”,  “email”: “changed@email.com” }</p>
+
+<p>Response:</p>
+
+<p>Headers:</p>
+
+<p>Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1OTUwMTU3ODd9.eKKejofKB6eiQoOxkS667Los_q8Q3GlugLd3zEZchGI Body:</p>
+
+<p>{  “status”: 200,  “message”: “User with id 3 is updated successfully”,  “data”: {  “user”: {  “id”: 3,  “username”: “customer”,  “email”: “changed@email.com”,  “role”: “admin”,  “password_digest”: “$2a$12$h4LjcFDrZAF86SDOk//ABee3W.fwkD2JcPCNi3TmyaZBAdeRjzDkG”,  “created_at”: “2020-07-17T12:25:38.648Z”,  “updated_at”: “2020-07-17T19:37:37.088Z”  }  } }</p>
+
+<p>Request:</p>
+
+<p>As standard user for self account update</p>
+
+<p>Content type: Application/Json Request URL: localhost:3000/users api-key: 123 Authorization: bearer &lt;token&gt; METHOD: PUT Body:</p>
+
+<p>{</p>
+
+<p>“email”: “changed@email.com” }</p>
+
+<p>Response:</p>
+
+<p>Headers:</p>
+
+<p>Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo5LCJleHAiOjE1OTUwMTY5MDZ9.mWykZsECQiQiXp7d5LIHY6wse-oRnq2dHxXDnCJG-H8</p>
+
+<p>Body:</p>
+
+<p>{  “status”: 200,  “message”: “Your accout got updated successfully”,  “data”: {  “user”: {  “id”: 9,  “email”: “changed@email.com”,  “password_digest”: “$2a$12$.SXCTs3VuXBdrbrF8zQRke.eBRIAOecUT5jX3X9R/AHEa.qEBwo86”,  “username”: “customer4”,  “role”: “customer”,  “created_at”: “2020-07-17T19:24:47.888Z”,  “updated_at”: “2020-07-17T19:57:56.707Z”  }  } }</p>
+
+<h2 id="label-Delete+User">Delete User</h2>
+
+<p>A POST request with username as request parameter finds and deletes the user associated. The admin can find and delete the record related to any account while other users can delete their own.</p>
+
+<p>Deleting a user account as an admin</p>
+
+<p>Request:</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/delete_user api-key: 123 Authorization: bearer &lt;token&gt; METHOD: POST</p>
+
+<p>Body:</p>
+
+<p>{  “username”: “customer2” }</p>
+
+<p>Response: Headers:</p>
+
+<p>Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1OTUwMTg1NjR9.CH_YtBX7Jh3BFhT65bbabg4HfnSxuCkJnf90hJmB95A</p>
+
+<p>{  “status”: 200,  “message”: “User with id 4 is deleted successfully”,  “data”: null }</p>
+
+<p>(deleting self account) Request:</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/delete_user api-key: 123 Authorization: bearer &lt;token&gt; METHOD: POST</p>
+
+<p>Body:</p>
+
+<p>
+<p></p>
+
+<p>Response: Headers:</p>
+
+<p>Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo5LCJleHAiOjE1OTUwMTgyMTJ9.fuZDX1W4x6jawzOtClfhMGyXbrwU_awwj3obAYugPCs</p>
+
+<p>Body: {  “status”: 200,  “message”: “You have successfully deleted your account.”,  “data”: null }</p>
+
+<h2 id="label-User+Show">User Show</h2>
+
+<p>A GET request that takes <code>username</code> as request parameter finds the user details associated. Only <code>admin</code> can find the record of user by show method. The standard users can get their details by <code>current_user</code> method after logging in</p>
+
+<p>Request: Content type: Application/Json Request URL: localhost:3000/users api-key: 123 Authorization: bearer &lt;token&gt; METHOD: GET</p>
+
+<p>Body:</p>
+
+<p>{  “username”: “owner” }</p>
+
+<p>Response:</p>
+
+<p>Body:</p>
+
+<p>{  “status”: 200,  “message”: “See received user details.”,  “data”: {  “user”: {  “id”: 10,  “username”: “owner”,  “password_digest”: “$2a$12$xleVL2nJ4n2Mlc.GClMZC.Yku673TkjbO6svTw1U38mszC3uXvCHS”,  “email”: “owner@email.com”,  “role”: “owner”,  “created_at”: “2020-07-17T19:29:56.503Z”,  “updated_at”: “2020-07-17T19:29:56.503Z”  }  } }</p>
+
+<p>Request: By non admin user</p>
+
+<p>Content type: Application/Json Request URL: localhost:3000/users api-key: 123 Authorization: bearer &lt;token&gt; METHOD: GET</p>
+
+<p>Response:</p>
+
+<p>Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNTk1MDE5ODU5fQ.ht_Ey2jVlUf6fP1HRP_SzJAuXghb3uFiw2za4DYXEpY</p>
+
+<p>Body:</p>
+
+<p>{  “status”: 403,  “message”: “Only admin can view user details.”,  “data”: null }</p>
+
+<h2 id="label-HOTEL+Create">HOTEL Create</h2>
+
+<p>Owner and admin can create a Hotel. parameters <code>name</code>, <code>rate</code> and <code>rating</code> and <code>owner_id</code> are required parameters. If owner creates the hotel <code>owner_id</code> is created as the <code>owner</code>.id implicit. <code>customer</code> is not permitted to create a Hotel object.</p>
+
+<p>Request: By admin user</p>
+
+<p>Content type: Application/Json Request URL: localhost:3000/hotels api-key: 123 Authorization: bearer &lt;token&gt; METHOD: POST</p>
+
+<p>Body:</p>
+
+<p>{  “name”: “SunPool”,  “rating”: 5,  “rate”: 750,  “owner_id”: 10</p>
+
+<p>} Response:</p>
+
+<p>Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNTk1MDE5ODU5fQ.ht_Ey2jVlUf6fP1HRP_SzJAuXghb3uFiw2za4DYXEpY</p>
+
+<p>Body:{  “status”: 200,  “message”: “You have created the hotel records successfully”,  “data”: {  “id”: 3,  “name”: “SunPool”,  “rating”: 5,  “description”: null,  “created_at”: “2020-07-17T21:16:16.514Z”,  “updated_at”: “2020-07-17T21:16:16.514Z”,  “rate”: “750.0”,  “owner_id”: 10  } }</p>
+
+<p>Request: By owner user</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/hotels api-key: 123 Authorization: bearer &lt;token&gt; METHOD: POST</p>
+
+<p>Body:</p>
+
+<p>{  “name”: “SunPoolasdf”,  “rating”: 5,  “rate”: 1250 } Response:</p>
+
+<p>Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNTk1MDE5ODU5fQ.ht_Ey2jVlUf6fP1HRP_SzJAuXghb3uFiw2za4DYXEpY</p>
+
+<p>Body: {  “status”: 200,  “message”: “You have created the hotel records successfully”,  “data”: {  “id”: 10,  “name”: “SunPoolasdf”,  “rating”: 5,  “description”: null,  “created_at”: “2020-07-18T03:35:40.011Z”,  “updated_at”: “2020-07-18T03:35:40.011Z”,  “rate”: “1250.0”,  “owner_id”: 10  } }</p>
+
+<h2 id="label-HOTEL+List">HOTEL List</h2>
+
+<p>All users can see the list of hotels by authenticating</p>
+
+<p>Request:</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/hotels/index api-key: 123 Authorization: bearer &lt;token&gt; METHOD: GET</p>
+
+<p>Response: Body:</p>
+
+<p>{  “status”: 200,  “message”: “Hotels List:”,  “data”: [ { “id”: 1, “name”: “SunMoon”, “rating”: 3, “description”: “The best class hotel in town!”, “created_at”: “2020-07-17T12:25:38.961Z”, “updated_at”: “2020-07-17T12:25:38.961Z”, “rate”: “1000.0”, “owner_id”: 2 }, { “id”: 2, “name”: “MoonSun”, “rating”: 3, “description”: “The best class hotel in town!”, “created_at”: “2020-07-17T12:25:38.987Z”, “updated_at”: “2020-07-17T12:25:38.987Z”, “rate”: “1000.0”, “owner_id”: 2 }, { “id”: 3, “name”: “SunPool”, “rating”: 5, “description”: null, “created_at”: “2020-07-17T21:16:16.514Z”, “updated_at”: “2020-07-17T21:16:16.514Z”, “rate”: “750.0”, “owner_id”: 10 }, { “id”: 4, “name”: “SunPool”, “rating”: 5, “description”: null, “created_at”: “2020-07-18T03:11:10.864Z”, “updated_at”: “2020-07-18T03:11:10.864Z”, “rate”: “750.0”, “owner_id”: 10 }, { “id”: 5, “name”: “SunPool”, “rating”: 5, “description”: null, “created_at”: “2020-07-18T03:16:18.721Z”, “updated_at”: “2020-07-18T03:16:18.721Z”, “rate”: “1250.0”, “owner_id”: 10 }, { “id”: 6, “name”: “SunPool”, “rating”: 5, “description”: null, “created_at”: “2020-07-18T03:20:48.254Z”, “updated_at”: “2020-07-18T03:20:48.254Z”, “rate”: “1250.0”, “owner_id”: 10 }, { “id”: 7, “name”: “SunPool”, “rating”: 5, “description”: null, “created_at”: “2020-07-18T03:21:05.803Z”, “updated_at”: “2020-07-18T03:21:05.803Z”, “rate”: “1250.0”, “owner_id”: 10 }, { “id”: 8, “name”: “SunPoolasdf”, “rating”: 5, “description”: null, “created_at”: “2020-07-18T03:21:30.598Z”, “updated_at”: “2020-07-18T03:21:30.598Z”, “rate”: “1250.0”, “owner_id”: 10 }, { “id”: 9, “name”: “SunPoolasdf”, “rating”: 5, “description”: null, “created_at”: “2020-07-18T03:21:51.526Z”, “updated_at”: “2020-07-18T03:21:51.526Z”, “rate”: “1250.0”, “owner_id”: 10 }, { “id”: 10, “name”: “SunPoolasdf”, “rating”: 5, “description”: null, “created_at”: “2020-07-18T03:35:40.011Z”, “updated_at”: “2020-07-18T03:35:40.011Z”, “rate”: “1250.0”, “owner_id”: 10 }, { “id”: 11, “name”: “SunPool”, “rating”: 5, “description”: null, “created_at”: “2020-07-18T03:41:41.725Z”, “updated_at”: “2020-07-18T03:41:41.725Z”, “rate”: “1250.0”, “owner_id”: 11 } ] }</p>
+
+<h2 id="label-HOTEL+Show">HOTEL Show</h2>
+
+<p>Fetches the details of hotel with <code>id</code></p>
+
+<p>Request:</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/show_hotel api-key: 123 Authorization: bearer &lt;token&gt; METHOD: POST</p>
+
+<p>Body:</p>
+
+<p>{  “id”: 10 }</p>
+
+<p>Response:</p>
+
+<p>Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNTk1MDE5ODU5fQ.ht_Ey2jVlUf6fP1HRP_SzJAuXghb3uFiw2za4DYXEpY</p>
+
+<p>Body:</p>
+
+<p>{  “status”: 200,  “message”: “The hotel details:”,  “data”: {  “id”: 10,  “name”: “SunPoolasdf”,  “rating”: 5,  “description”: null,  “created_at”: “2020-07-18T03:35:40.011Z”,  “updated_at”: “2020-07-18T03:35:40.011Z”,  “rate”: “1250.0”,  “owner_id”: 10  } }</p>
+
+<h2 id="label-Hotel+Update">Hotel Update</h2>
+
+<p>Admin can update all hotels with all parameters. Owner can edit his own hotel</p>
+
+<p>Request:</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/hotels api-key: 123 Authorization: bearer &lt;token&gt; METHOD: PUT Body: {  “id”: 1,  “name”: “ChangedAgain”,  “owner_id”: 10 } Response:</p>
+
+<p>Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNTk1MDE5ODU5fQ.ht_Ey2jVlUf6fP1HRP_SzJAuXghb3uFiw2za4DYXEpY</p>
+
+<p>Body: {  “status”: 200,  “message”: “The hotel ChangedAgain has been updated.”,  “data”: {  “id”: 1,  “name”: “ChangedAgain”,  “owner_id”: 10,  “rate”: “1000.0”,  “rating”: 3,  “description”: “The best class hotel in town!”,  “created_at”: “2020-07-17T12:25:38.961Z”,  “updated_at”: “2020-07-18T05:10:36.193Z”  } }</p>
+
+<h2 id="label-Hotel+Delete">Hotel Delete</h2>
+
+<p>Request:</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/delete_hotel api-key: 123 Authorization: bearer &lt;token&gt; METHOD: POST</p>
+
+<p>Body:</p>
+
+<p>{  “id”: 3 } Response:</p>
+
+<p>Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNTk1MDE5ODU5fQ.ht_Ey2jVlUf6fP1HRP_SzJAuXghb3uFiw2za4DYXEpY</p>
+
+<p>Body:</p>
+
+<p>{  “status”: 200,  “message”: “You have successfully deleted the Hotel Changed&#39;s records.”,  “data”: null }</p>
+
+<h2 id="label-Bookings+list+for+a+Hotel">Bookings list for a Hotel</h2>
+
+<p>Lists all the bookings in a hotel by <code>id</code></p>
+
+<p>Request:</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/bookings_in_hotel api-key: 123 Authorization: bearer &lt;token&gt; METHOD: POST</p>
+
+<p>Body: {  “id”: 2 }</p>
+
+<p>Response: Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMCwiZXhwIjoxNTk1MDE5ODU5fQ.ht_Ey2jVlUf6fP1HRP_SzJAuXghb3uFiw2za4DYXEpY</p>
+
+<p>Body:</p>
+
+<p>{  “status”: 200,  “message”: “The list of bookings for the Hotel is:”,  “data”: [ { “id”: 4, “hotel_id”: 2, “user_id”: 3, “payment_status”: false, “created_at”: “2020-07-17T12:25:39.132Z”, “updated_at”: “2020-07-17T12:25:39.132Z”, “adults”: 3, “children”: 1, “rate”: null, “amount”: null, “booking_status”: “pending” }, { “id”: 5, “hotel_id”: 2, “user_id”: 4, “payment_status”: false, “created_at”: “2020-07-17T12:25:39.156Z”, “updated_at”: “2020-07-17T12:25:39.156Z”, “adults”: 3, “children”: 1, “rate”: null, “amount”: null, “booking_status”: “pending” }, { “id”: 6, “hotel_id”: 2, “user_id”: 1, “payment_status”: false, “created_at”: “2020-07-17T12:25:39.181Z”, “updated_at”: “2020-07-17T12:25:39.181Z”, “adults”: 3, “children”: 1, “rate”: null, “amount”: null, “booking_status”: “pending” } ] }</p>
+
+<h2 id="label-Bookings+Creation">Bookings Creation</h2>
+
+<p>Creates bookings by POST request <code>hotel_id</code> and <code>user_id</code> required. <code>adults</code> and <code>children</code> optional. <code>user_id</code> is set as current user id for users other than admin. <code>payment_status</code> set to default <code>false</code> on creation and <code>booking_status</code> to <code>pending</code> and they change to <code>true</code> and <code>confirmed</code> respectively upon successful payment.</p>
+
+<p>Request:</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/bookings api-key: 123 Authorization: bearer &lt;token&gt; METHOD: POST</p>
+
+<p>Body: {  “hotel_id”: 2,  “adults”: 3,  “children”: 3 }</p>
+
+<p>Response: Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1OTUwNTY1MDd9.-UElLHs18D-qBPLrh_pYn2rRoq7Y64MK6u6LKi_7Lls</p>
+
+<p>Body: {  “status”: 200,  “message”: “Booking with id 8 created”,  “data”: {  “id”: 8,  “hotel_id”: 2,  “user_id”: 3,  “payment_status”: false,  “created_at”: “2020-07-18T07:00:07.818Z”,  “updated_at”: “2020-07-18T07:00:07.818Z”,  “adults”: 3,  “children”: 3,  “rate”: “1000.0”,  “amount”: “4500.0”,  “booking_status”: “pending”  } }</p>
+
+<h2 id="label-List+of+Bookings+relevant+to+roles">List of Bookings relevant to roles</h2>
+
+<p>Admin gets all the lists. Customer gets own list and owner gets bookings in hotel owned. Request:</p>
+
+<p>as customer</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/bookings/list api-key: 123 Authorization: bearer &lt;token&gt; METHOD: GET</p>
+
+<p>Response: Response: Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1OTUwNTY1MDd9.-UElLHs18D-qBPLrh_pYn2rRoq7Y64MK6u6LKi_7Lls</p>
+
+<p>Body:</p>
+
+<p>{  “status”: 200,  “message”: “The relevant bookings for you:”,  “data”: [ { “id”: 1, “hotel_id”: 1, “user_id”: 3, “payment_status”: false, “created_at”: “2020-07-18T06:56:12.300Z”, “updated_at”: “2020-07-18T06:56:12.300Z”, “adults”: 3, “children”: 1, “rate”: null, “amount”: null, “booking_status”: “pending” }, { “id”: 4, “hotel_id”: 2, “user_id”: 3, “payment_status”: false, “created_at”: “2020-07-18T06:56:12.400Z”, “updated_at”: “2020-07-18T06:56:12.400Z”, “adults”: 3, “children”: 1, “rate”: null, “amount”: null, “booking_status”: “pending” }, { “id”: 7, “hotel_id”: 2, “user_id”: 3, “payment_status”: false, “created_at”: “2020-07-18T06:58:54.301Z”, “updated_at”: “2020-07-18T06:58:54.301Z”, “adults”: 1, “children”: null, “rate”: “1000.0”, “amount”: “1000.0”, “booking_status”: “pending” }, { “id”: 8, “hotel_id”: 2, “user_id”: 3, “payment_status”: false, “created_at”: “2020-07-18T07:00:07.818Z”, “updated_at”: “2020-07-18T07:00:07.818Z”, “adults”: 3, “children”: 3, “rate”: “1000.0”, “amount”: “4500.0”, “booking_status”: “pending” } ] }</p>
+
+<p>Request:</p>
+
+<p>as admin</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/bookings/list api-key: 123 Authorization: bearer &lt;token&gt; METHOD: GET</p>
+
+<p>Response:</p>
+
+<p>Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1OTUwNTc1MDd9.qeZEA48TfuT-Q8v6fJNofSoQYhxoD_G8xb96uLwzUbE</p>
+
+<p>Body:</p>
+
+<p>{  “status”: 200,  “message”: “The relevant bookings for you:”,  “data”: [ { “id”: 1, “hotel_id”: 1, “user_id”: 3, “payment_status”: false, “created_at”: “2020-07-18T06:56:12.300Z”, “updated_at”: “2020-07-18T06:56:12.300Z”, “adults”: 3, “children”: 1, “rate”: null, “amount”: null, “booking_status”: “pending” }, { “id”: 2, “hotel_id”: 1, “user_id”: 4, “payment_status”: false, “created_at”: “2020-07-18T06:56:12.333Z”, “updated_at”: “2020-07-18T06:56:12.333Z”, “adults”: 3, “children”: 1, “rate”: null, “amount”: null, “booking_status”: “pending” }, { “id”: 3, “hotel_id”: 1, “user_id”: 1, “payment_status”: false, “created_at”: “2020-07-18T06:56:12.367Z”, “updated_at”: “2020-07-18T06:56:12.367Z”, “adults”: 3, “children”: 1, “rate”: null, “amount”: null, “booking_status”: “pending” }, { “id”: 4, “hotel_id”: 2, “user_id”: 3, “payment_status”: false, “created_at”: “2020-07-18T06:56:12.400Z”, “updated_at”: “2020-07-18T06:56:12.400Z”, “adults”: 3, “children”: 1, “rate”: null, “amount”: null, “booking_status”: “pending” }, { “id”: 5, “hotel_id”: 2, “user_id”: 4, “payment_status”: false, “created_at”: “2020-07-18T06:56:12.437Z”, “updated_at”: “2020-07-18T06:56:12.437Z”, “adults”: 3, “children”: 1, “rate”: null, “amount”: null, “booking_status”: “pending” }, { “id”: 6, “hotel_id”: 2, “user_id”: 1, “payment_status”: false, “created_at”: “2020-07-18T06:56:12.471Z”, “updated_at”: “2020-07-18T06:56:12.471Z”, “adults”: 3, “children”: 1, “rate”: null, “amount”: null, “booking_status”: “pending” }, { “id”: 7, “hotel_id”: 2, “user_id”: 3, “payment_status”: false, “created_at”: “2020-07-18T06:58:54.301Z”, “updated_at”: “2020-07-18T06:58:54.301Z”, “adults”: 1, “children”: null, “rate”: “1000.0”, “amount”: “1000.0”, “booking_status”: “pending” }, { “id”: 8, “hotel_id”: 2, “user_id”: 3, “payment_status”: false, “created_at”: “2020-07-18T07:00:07.818Z”, “updated_at”: “2020-07-18T07:00:07.818Z”, “adults”: 3, “children”: 3, “rate”: “1000.0”, “amount”: “4500.0”, “booking_status”: “pending” } ] }</p>
+
+<h2 id="label-Show+Booking">Show Booking</h2>
+
+<p>Gets a booking by <code>id</code></p>
+
+<p>Request:</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/show_booking api-key: 123 Authorization: bearer &lt;token&gt; METHOD: POST</p>
+
+<p>Body:</p>
+
+<p>{  “id”: 2 }</p>
+
+<p>Response:</p>
+
+<p>Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1OTUwNTc1MDd9.qeZEA48TfuT-Q8v6fJNofSoQYhxoD_G8xb96uLwzUbE</p>
+
+<p>Body:</p>
+
+<p>{  “status”: 200,  “message”: “The booking with id 2 is:”,  “data”: {  “id”: 2,  “hotel_id”: 1,  “user_id”: 4,  “payment_status”: false,  “created_at”: “2020-07-18T06:56:12.333Z”,  “updated_at”: “2020-07-18T06:56:12.333Z”,  “adults”: 3,  “children”: 1,  “rate”: null,  “amount”: null,  “booking_status”: “pending”  } }</p>
+
+<h2 id="label-Booking+Update">Booking Update</h2>
+
+<p>Updates a booking by its <code>id</code>. Only <code>admin</code> and respective hotel <code>owner</code> can update a record.</p>
+
+<p>Request:</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/bookings api-key: 123 Authorization: bearer &lt;token&gt; METHOD: PUT</p>
+
+<p>Body:</p>
+
+<p>{  “id”: 2,  “user_id”: 3 }</p>
+
+<p>Response:</p>
+
+<p>Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1OTUwNTc1MDd9.qeZEA48TfuT-Q8v6fJNofSoQYhxoD_G8xb96uLwzUbE</p>
+
+<p>Body:</p>
+
+<p>{  “status”: 200,  “message”: “Booking updated.”,  “data”: {  “hotel_id”: 1,  “id”: 2,  “user_id”: 3,  “payment_status”: false,  “created_at”: “2020-07-18T06:56:12.333Z”,  “updated_at”: “2020-07-18T07:45:23.015Z”,  “adults”: 3,  “children”: 1,  “rate”: null,  “amount”: null,  “booking_status”: “pending”  } }</p>
+
+<h2 id="label-Booking+payment+checkout">Booking payment checkout</h2>
+
+<p>Takes <code>id</code> of the booking and <code>token</code> as request parameters and if the payment <code>token</code> exists or <code>true</code> then the booking is updated with <code>payment_status</code> as <code>true</code> and <code>booking_status</code> as <code>confirmed</code>. If <code>token</code> not exists or <code>null</code> or <code>false</code> payment fails.</p>
+
+<p>Request:</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/checkout api-key: 123 Authorization: bearer &lt;token&gt; METHOD: POST</p>
+
+<p>{  “id”: 9,  “token”: true } Response: Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1OTUwNjgyODR9.lpXhlwH8e_ZF-Mm_uNbIq8RC1Tcpd4IaAm_hV7F0MHk</p>
+
+<p>{  “status”: 200,  “message”: “Payment successful!”,  “data”: {  “payment_status”: true,  “id”: 9,  “booking_status”: “confirmed”,  “user_id”: 5,  “hotel_id”: 3,  “created_at”: “2020-07-18T08:16:17.726Z”,  “updated_at”: “2020-07-18T10:06:16.379Z”,  “adults”: 3,  “children”: null,  “rate”: “1250.0”,  “amount”: “3750.0”  } }</p>
+
+<h2 id="label-Booking+Cancel">Booking Cancel</h2>
+
+<p>Takes <code>id</code> of the booking and updates the <code>booking_status</code> to <code>cancelled</code> booking if either the current user has booked the booking or user is admin.</p>
+
+<p>Request:</p>
+
+<p>Headers: Content type: Application/Json Request URL: localhost:3000/cancel_booking api-key: 123 Authorization: bearer &lt;token&gt; METHOD: POST</p>
+
+<p>{  “id”: 12 }</p>
+
+<p>Response: Headers: Content-Type: application/json; charset=utf-8 Transfer-Encoding: chunked Referrer-Policy: strict-origin-when-cross-origin auth_token:eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE1OTUwNjkyNzl9.d4Qy3nwaGLytXVkc09Hd0B1Ls1nJsI01khrkzd9q7fg</p>
+
+<p>{  “status”: 200,  “message”: “Booking cancelled!”,  “data”: {  “user_id”: 3,  “id”: 12,  “booking_status”: “cancelled”,  “hotel_id”: 3,  “payment_status”: false,  “created_at”: “2020-07-18T10:31:46.095Z”,  “updated_at”: “2020-07-18T10:32:59.497Z”,  “adults”: 1,  “children”: null,  “rate”: “1250.0”,  “amount”: “1250.0”  } }</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Sun Jul 26 18:24:51 2020 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.25 (ruby-2.7.0).
+</div>
+
+    </div>
+  </body>
+</html>
