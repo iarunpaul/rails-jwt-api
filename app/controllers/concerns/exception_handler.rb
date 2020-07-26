@@ -8,16 +8,17 @@ module ExceptionHandler
   class InvalidToken < StandardError; end
   class MissingApiKey < StandardError; end
   class RoleError < StandardError; end
+  class AttributeError < StandardError; end
 
   included do
 
     # Define custom handlers
-    rescue_from ActiveRecord::RecordInvalid, with: :four_twenty_two
     rescue_from ExceptionHandler::AuthenticationError, with: :unauthorized_request
     rescue_from ExceptionHandler::MissingToken, with: :four_twenty_two
     rescue_from ExceptionHandler::InvalidToken, with: :four_twenty_two
     rescue_from ExceptionHandler::MissingApiKey, with: :unauthorized_request
     rescue_from ExceptionHandler::RoleError, with: :unauthorized_request
+    rescue_from ExceptionHandler::AttributeError, with: :four_twenty_two
 
 
     rescue_from ActiveRecord::RecordNotFound do |e|
@@ -25,7 +26,7 @@ module ExceptionHandler
     end
 
     rescue_from ActiveRecord::RecordInvalid do |e|
-      json_response({ message: e.message }, :unprocessable_entity)
+      json_response({ message: e.inspect }, :unprocessable_entity)
     end
   end
 

@@ -121,11 +121,11 @@ RSpec.describe 'Bookings API' do
       before { post "/bookings", params: {}, headers: headers }
 
       it 'returns status code 404' do
-        expect(response).to have_http_status(404)
+        expect(response).to have_http_status(422)
       end
 
       it 'returns a failure message' do
-        expect(json['message']).to match(/Couldn't find Hotel without an ID/)
+        expect(json['message']).to match(/Invalid credentials/)
       end
     end
   end

@@ -5,15 +5,25 @@ class BookingsController < ApplicationController
   	booking.user_id = @current_user.id unless @current_user.admin?
   	hotel = Hotel.find(params[:hotel_id])
   	booking.rate = hotel.rate
+    byebug
   	booking.amount = booking.rate*( booking.adults + booking.children.to_f/2 )
-  	if booking.valid?
-      booking.save!
-      message = "Booking with id #{booking.id} created"
-  		respond_http(status: :created, error: nil, message: message, booking_created: booking)
-  	else
-      message = "Booking not valid."
-  		respond_http(status: 406, error: :attribute_error, message: message)
-		end
+    booking.save!
+    message = "Booking with id #{booking.id} created"
+		respond_http(status: :created, error: nil, message: message, booking_created: booking)
+    # handle invalid or void attributes
+  rescue ActiveRecord::RecordNotFound => e
+    # raise custom error
+    raise(
+      ExceptionHandler::AttributeError,
+      ("#{Message.invalid_credentials} #{e.message}")
+    )
+  rescue ActiveRecord::RecordInvalid => e
+    # raise custom error
+    raise(
+      ExceptionHandler::AttributeError,
+      ("#{Message.invalid_credentials} #{e.message}")
+    )
+
   end
 
   # LIST OF bookings relevent to roles
