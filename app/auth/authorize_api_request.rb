@@ -22,8 +22,8 @@ class AuthorizeApiRequest
   rescue ActiveRecord::RecordNotFound => e
     # raise custom error
     raise(
-      ExceptionHandler::AttributeError,
-      ("#{Message.attribute_error} #{e.message}")
+      ExceptionHandler::InvalidToken,
+      ("#{Message.invalid_token} #{e.message}")
     )
   end
 

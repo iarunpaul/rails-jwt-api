@@ -17,7 +17,7 @@ module ExceptionHandler
     rescue_from ExceptionHandler::MissingToken, with: :four_twenty_two
     rescue_from ExceptionHandler::InvalidToken, with: :four_twenty_two
     rescue_from ExceptionHandler::MissingApiKey, with: :unauthorized_request
-    rescue_from ExceptionHandler::RoleError, with: :unauthorized_request
+    rescue_from ExceptionHandler::RoleError, with: :forbidden_request
     rescue_from ExceptionHandler::AttributeError, with: :four_twenty_two
 
 
@@ -40,6 +40,11 @@ module ExceptionHandler
   # JSON response with message; Status code 401 - Unauthorized
   def unauthorized_request(e)
     json_response({ message: e.message }, :unauthorized)
+  end
+
+  # JSON response with message; Status code 403 - Forbidden
+  def forbidden_request(e)
+    json_response({ message: e.message }, :forbidden)
   end
 
 end
