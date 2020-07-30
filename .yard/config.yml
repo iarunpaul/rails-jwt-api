@@ -1,0 +1,6 @@
+load_plugins: true # Auto-load plugins when YARD starts
+ignored_plugins:
+  - yard-broken
+  - broken2 # yard- prefix not necessary
+autoload_plugins:
+  - yard-rspec

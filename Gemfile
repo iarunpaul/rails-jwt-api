@@ -39,6 +39,8 @@ group :development, :test do
   gem 'yard'
   gem 'yard-rspec'
   gem 'rdoc'
+  # gem 'rspec_api_documentation'
+  # gem 'apitome'
 end
 # test gems
 group :test do

@@ -151,7 +151,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#cancel_booking-instance_method" title="#cancel_booking (instance method)">#<strong>cancel_booking</strong>(id)  &#x21d2; Response, Nil </a>
+      <a href="#cancel_booking-instance_method" title="#cancel_booking (instance method)">#<strong>cancel_booking</strong>(id)  &#x21d2; Response </a>
     
 
     
@@ -190,7 +190,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Updated booking details with payment.</p>
+<p>Updated booking details with payment, returns status 422 if token is nil.</p>
 </div></span>
   
 </li>
@@ -334,7 +334,7 @@
       <div class="method_details first">
   <h3 class="signature first" id="cancel_booking-instance_method">
   
-    #<strong>cancel_booking</strong>(id)  &#x21d2; <tt><span class='object_link'><a href="Response.html" title="Response (module)">Response</a></span></tt>, <tt>Nil</tt> 
+    #<strong>cancel_booking</strong>(id)  &#x21d2; <tt><span class='object_link'><a href="Response.html" title="Response (module)">Response</a></span></tt> 
   
 
   
@@ -376,13 +376,13 @@
     <li>
       
       
-        <span class='type'>(<tt><span class='object_link'><a href="Response.html" title="Response (module)">Response</a></span></tt>, <tt>Nil</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="Response.html" title="Response (module)">Response</a></span></tt>)</span>
       
       
       
         &mdash;
         <div class='inline'>
-<p>with cancelled booking details, returns status 403 if token is nil</p>
+<p>with cancelled booking details</p>
 </div>
       
     </li>
@@ -472,7 +472,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns updated booking details with payment.</p>
+<p>Returns updated booking details with payment, returns status 422 if token is nil.</p>
 
 
   </div>
@@ -511,7 +511,39 @@
       
         &mdash;
         <div class='inline'>
-<p>updated booking details with payment</p>
+<p>updated booking details with payment, returns status 422 if token is nil</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>RecordNotFound</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>raises not found error if user <code>id</code> doesn&#39;t exist</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>RecordInvalid</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>raises invalid error if booking+id+ is invalid</p>
 </div>
       
     </li>
@@ -524,10 +556,6 @@
       <pre class="lines">
 
 
-116
-117
-118
-119
 120
 121
 122
@@ -536,10 +564,14 @@
 125
 126
 127
-128</pre>
+128
+129
+130
+131
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'app/controllers/bookings_controller.rb', line 116</span>
+      <pre class="code"><span class="info file"># File 'app/controllers/bookings_controller.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_checkout'>checkout</span>
   <span class='id identifier rubyid_booking'>booking</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Booking.html" title="Booking (class)">Booking</a></span></span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='id identifier rubyid_params'>params</span><span class='lbracket'>[</span><span class='symbol'>:id</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -1019,7 +1051,7 @@
 </div>
 
       <div id="footer">
-  Generated on Mon Jul 27 12:08:03 2020 by
+  Generated on Mon Jul 27 18:47:28 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.7.0).
 </div>
