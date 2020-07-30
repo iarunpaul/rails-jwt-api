@@ -42,7 +42,7 @@ class BookingsController < ApplicationController
   		bookings = Booking.all
   	elsif @current_user.owner?
   		hotels = Hotel.includes(:bookings).where(owner_id: @current_user.id)# eager loading
-  		bookings = []
+  		# bookings = []
   		hotels.each do |hotel|
   			bookings.push(hotel.bookings)
   		end

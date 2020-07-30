@@ -131,7 +131,7 @@ class UsersController < ApplicationController
   # POST /signup
   # return authenticated token upon signup
   def create
-    if request.headers['Authorization'].present? && @user = AuthorizeApiRequest.new(request.headers).user
+    if request.env['HTTP_AUTHORIZATION'].present? && @user = AuthorizeApiRequest.new(request.headers).user
       u = User.new(user_params)
       @user.admin? && u.admin? ? u.save! : raise(ExceptionHandler::RoleError, Message.role_error)
     else

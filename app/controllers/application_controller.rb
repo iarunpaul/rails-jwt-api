@@ -87,6 +87,6 @@ class ApplicationController < ActionController::API
   # @!visibility private
   # @return [Error, nil] return error if key is missing/invalid. Can be nil if key matches
   def authorize_with_key
-    raise(ExceptionHandler::MissingApiKey, Message.missing_key) if request.headers['api-key'] != 'api-123'
+    raise(ExceptionHandler::MissingApiKey, Message.missing_key) if request.headers['api-key'] != ENV['API_KEY']
   end
 end

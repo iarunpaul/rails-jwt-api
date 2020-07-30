@@ -14,7 +14,7 @@ module ControllerSpecHelper
     {
       "Authorization" => token_generator(user.id),
       "Content-Type" => "application/json",
-      "api-key" => "api-123"
+      "api-key" => ENV['API_KEY']
     }
   end
 
@@ -23,7 +23,7 @@ module ControllerSpecHelper
     {
       "Authorization" => nil,
       "Content-Type" => "application/json",
-      "api-key" => "api-123"
+      "api-key" => ENV['API_KEY']
     }
   end
 
