@@ -27,8 +27,11 @@ module V1
     # @note it lists all hotel irrespective to the user role
     def index
       hotels = Hotel.all
+      paginated = hotels.paginate(page: params[:page], per_page: 10)
+      # for active-record-serialized response
+      # render json: paginated, status: 200
       message = "Hotels List:"
-      respond_http(error: nil, message: message, hotel_list: hotels)
+      respond_http(error: nil, message: message, hotel_list: paginated)
     end
 
     # SHOW the hotel details

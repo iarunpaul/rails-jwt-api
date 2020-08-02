@@ -29,6 +29,10 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors'
 # A pure ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
 gem 'jwt', '~> 2.2', '>= 2.2.1'
+# For serialization in api
+gem 'active_model_serializers'
+# For pagination
+gem 'will_paginate', '~> 3.1.0'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -39,6 +43,7 @@ group :development, :test do
   gem 'yard'
   gem 'yard-rspec'
   gem 'rdoc'
+  gem 'faker'
   # gem 'rspec_api_documentation'
   # gem 'apitome'
 end
@@ -46,7 +51,6 @@ end
 group :test do
   gem 'factory_bot_rails', '~> 4.0'
   gem 'shoulda-matchers', '~> 3.1'
-  gem 'faker'
   gem 'database_cleaner'
 end
 group :development do

@@ -19,3 +19,7 @@ user1 = User.create(username: "admin", password: "password", email: "user@exampl
 # booking2 = Booking.create(user_id: user4.id, hotel_id: hotel2.id, adults: 3, children: 1)
 # booking3 = Booking.create(user_id: user1.id, hotel_id: hotel2.id, adults: 3, children: 1)
 # # booking = Booking.create(hotel_id: hotel.id, user_id: user3.id, booking_class: hotel.hotel_class)
+50.times do
+  hotel = Hotel.create(name: Faker::Lorem.word, rate: 750, rating: 5, owner_id: User.first.id)
+  hotel.bookings.create(user_id: User.last.id, hotel_id: hotel.id, adults: 2, children: 2)
+end
