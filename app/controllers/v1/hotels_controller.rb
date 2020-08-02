@@ -7,7 +7,7 @@ module V1
     # @param request [Request] required: `name`, `rate`, `rating` and `owner_id`,
     #   if `admin` creates the hotel, elsif owner creates hotel
     #   `owner_id` is assigned as current_user `id`
-    # @result [Response] it returns Json response with the created status and hotel details
+    # @return [Response] it returns Json response with the created status and hotel details
      def create
       if @current_user.admin? || @current_user.owner?
         hotel = Hotel.new(hotel_params)
